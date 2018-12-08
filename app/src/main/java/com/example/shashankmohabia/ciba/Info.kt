@@ -134,7 +134,7 @@ class Info : AppCompatActivity() {
 
     private fun launchHomeScreen() {
         prefManager!!.isFirstTimeLaunch = false
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, choose::class.java))
         finish()
     }
 
