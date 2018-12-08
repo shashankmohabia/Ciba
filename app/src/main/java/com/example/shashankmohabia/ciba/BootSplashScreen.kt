@@ -12,7 +12,7 @@ class BootSplashScreen : AppCompatActivity(){
         super.onCreate(savedInstancestate)
         setContentView(R.layout.bootsplashscreen)
 
-        val intent= Intent(this,MainActivity::class.java)
+        val intent= Intent(this,Info::class.java)
        Thread{
          try{
             sleep(1500)
