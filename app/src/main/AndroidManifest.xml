@@ -23,6 +23,8 @@
         <activity android:name=".choose"></activity>
         <activity android:name=".Login_customer">        </activity>
         <activity android:name=".Login_merchant"></activity>
+        <activity android:name=".Menu"/>
+        <activity android:name=".RegisterNew"/>
     </application>
 
 </manifest>
