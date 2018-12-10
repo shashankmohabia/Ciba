@@ -1,4 +1,4 @@
-package com.example.shashankmohabia.ciba
+package com.example.shashankmohabia.ciba.UI
 
 import android.content.Context
 import android.content.Intent
@@ -12,12 +12,13 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.info.view.*
+import com.example.shashankmohabia.ciba.UI.prefmanager
+import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
 
 class Info : AppCompatActivity() {
 
@@ -28,7 +29,7 @@ class Info : AppCompatActivity() {
     private var layouts: IntArray? = null
     private var btnSkip: Button? = null
     private var btnNext: Button? = null
-    private var prefManager: PrefManager? = null
+    private var prefManager: prefmanager? = null
 
     //  viewpager change listener
     internal var viewPagerPageChangeListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
@@ -61,7 +62,7 @@ class Info : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Checking for first time launch - before calling setContentView()
-        prefManager = PrefManager(this)
+        prefManager = prefmanager(this)
         if (!prefManager!!.isFirstTimeLaunch) {
             //launchHomeScreen()
             //finish()
@@ -82,7 +83,7 @@ class Info : AppCompatActivity() {
 
         // layouts of all welcome sliders
         // add few more layouts if you want
-        layouts = intArrayOf(R.layout.welcome1, R.layout.welcome2, R.layout.welcome3, R.layout.welcome4)
+        layouts = intArrayOf(R.layout.info_page_1, R.layout.info_page_2, R.layout.info_page_3, R.layout.welcome4)
 
         // adding bottom dots
         addBottomDots(0)
@@ -97,17 +98,17 @@ class Info : AppCompatActivity() {
         btnSkip!!.setOnClickListener { launchHomeScreen() }
 
         btnNext!!.setOnClickListener {
-            // checking for last page
-            // if last page home screen will be launched
-            val current = getItem(+1)
-            if (current < layouts!!.size) {
-                // move to next screen
-                viewPager!!.currentItem = current
-            } else {
-                launchHomeScreen()
-            }
-        }
+    // checking for last page
+    // if last page home screen will be launched
+    val current = getItem(+1)
+    if (current < layouts!!.size) {
+        // move to next screen
+        viewPager!!.currentItem = current
+    } else {
+        launchHomeScreen()
     }
+}
+}
 
     private fun addBottomDots(currentPage: Int) {
         dots = arrayOfNulls(layouts!!.size)
@@ -134,7 +135,7 @@ class Info : AppCompatActivity() {
 
     private fun launchHomeScreen() {
         prefManager!!.isFirstTimeLaunch = false
-        startActivity(Intent(this, choose::class.java))
+        startActivity(Intent(this, UserTypeSelectionActivity::class.java))
         finish()
     }
 
