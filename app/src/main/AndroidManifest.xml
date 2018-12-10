@@ -9,9 +9,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Core.MainActivity">
             </activity>
-        <activity android:name=".BootSplashScreen">
+        <activity android:name=".UI.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -19,8 +19,8 @@
             </intent-filter>
 
         </activity>
-<activity android:name=".Info"></activity>
-        <activity android:name=".choose"></activity>
+<activity android:name=".UI.Info"></activity>
+        <activity android:name=".UserType.UserTypeSelectionActivity"></activity>
         <activity android:name=".Login_customer">        </activity>
         <activity android:name=".Login_merchant"></activity>
         <activity android:name=".Menu"/>
