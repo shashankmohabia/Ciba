@@ -35,6 +35,8 @@
 
     <!--card color-->
     <color name="blue">#1976D2</color>
+    <color name="blue_light">#2d7ece</color>
+    <color name="blue_dark">#086ccf</color>
     <color name="green">#4CAF50</color>
 
     <!--login screen user-->

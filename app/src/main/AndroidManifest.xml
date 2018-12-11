@@ -21,7 +21,7 @@
         </activity>
 <activity android:name=".UI.Info"></activity>
         <activity android:name=".UserType.UserTypeSelectionActivity"></activity>
-        <activity android:name="LoginActivity"></activity>
+        <activity android:name=".Auth.LoginActivity"></activity>
     </application>
 
 </manifest>
