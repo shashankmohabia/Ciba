@@ -33,11 +33,16 @@
     <color name="dot_light_screen3">#93c6fd</color>
     <color name="dot_light_screen4">#e4b5fc</color>
 
-    <!--card color-->
+    <!--usertype bg color blue-->
     <color name="blue">#1976D2</color>
-    <color name="blue_light">#2d7ece</color>
-    <color name="blue_dark">#086ccf</color>
+    <color name="blue_light">#8dfcf7</color>
+    <color name="blue_dark">#021acc</color>
+
+    <!--user type bg color green-->
     <color name="green">#4CAF50</color>
+    <color name="green_light">#ade16d</color>
+    <color name="green_dark">#02af2a</color>
+
 
     <!--login screen user-->
     <color name="colorPrimarylogin">#33b5e5</color>
