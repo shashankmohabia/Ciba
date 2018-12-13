@@ -38,6 +38,7 @@ class LoginActivity:AppCompatActivity(){
                 .build()
         mGoogleSignInClient=GoogleSignIn.getClient(this,gso)
         signOut = findViewById<View>(R.id.signout) as Button
+        signOut.visibility=View.INVISIBLE
 
         signin.setOnClickListener {
             signInGoogle()
@@ -67,12 +68,14 @@ class LoginActivity:AppCompatActivity(){
     private fun updateUI(account : GoogleSignInAccount?){
         val disp = findViewById<TextView>(R.id.name) as TextView
         disp.text=account!!.displayName
+        signOut.visibility=View.VISIBLE
         val img = findViewById<ImageView>(R.id.DP)
         signOut.setOnClickListener {
             mGoogleSignInClient.signOut().addOnCompleteListener {
 
                 disp.text="Login"
                 //disp.textSize="20sp"
+                signOut.visibility=View.INVISIBLE
 
             }
         }
