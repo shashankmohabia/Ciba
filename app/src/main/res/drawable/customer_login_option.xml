@@ -3,7 +3,7 @@
 
         <item
             android:bottom="-16dp"
-            android:drawable="@drawable/shadow_215531"
+            android:drawable="@drawable/shadow_user_type_selection"
             android:left="-30dp"
             android:right="-50dp"
             android:top="-20dp">

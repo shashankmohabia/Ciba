@@ -20,13 +20,14 @@
                 android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="160dp"
+        android:id="@+id/login_card"
+        android:layout_marginTop="200dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#fff"
+        android:background="@drawable/login_card"
         android:orientation="vertical"
         android:padding="20dp">
             <TextView
@@ -35,6 +36,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Email Id" />
             <EditText
+                android:id="@+id/login_email"
                 android:drawableRight="@drawable/login_ic_person"
                 android:drawablePadding="30dp"
                 android:layout_width="match_parent"
@@ -46,20 +48,24 @@
                 android:layout_marginTop="5dp"
                 android:text="Password" />
             <EditText
+                android:id="@+id/login_passoword"
                 android:drawableRight="@drawable/login_ic_eye"
                 android:drawablePadding="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="***********" />
             <Button
+                android:id="@+id/login_login"
                 android:background="@drawable/button_gradient_login"
                 android:textColor="#fff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="        Login"
+                android:textSize="15sp"
                 android:textAllCaps="false" />
             <com.google.android.gms.common.SignInButton
+                android:id="@+id/gsignin"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -67,6 +73,7 @@
 
     </LinearLayout>
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ciba_logo"
@@ -80,4 +87,17 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_login_top" />
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_card"
+        android:layout_centerHorizontal="true"
+        android:text="SIGN OUT" />
+    <ImageView
+        android:id="@+id/DP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signout"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

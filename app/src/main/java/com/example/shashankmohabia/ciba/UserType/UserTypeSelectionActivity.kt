@@ -14,6 +14,7 @@ class UserTypeSelectionActivity:AppCompatActivity() {
     val btn_customer=findViewById<ImageView>(R.id.customer_option) as ImageView
         btn_customer.setOnClickListener {
             val intent= Intent(this, LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
