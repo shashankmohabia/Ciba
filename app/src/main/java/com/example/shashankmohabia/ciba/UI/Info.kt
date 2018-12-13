@@ -16,7 +16,6 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.shashankmohabia.ciba.UI.prefmanager
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
 
@@ -83,7 +82,7 @@ class Info : AppCompatActivity() {
 
         // layouts of all welcome sliders
         // add few more layouts if you want
-        layouts = intArrayOf(R.layout.info_page_1, R.layout.info_page_2, R.layout.info_page_3, R.layout.welcome4)
+        layouts = intArrayOf(R.layout.info_page_1, R.layout.info_page_2, R.layout.info_page_3, R.layout.info_page_4)
 
         // adding bottom dots
         addBottomDots(0)
