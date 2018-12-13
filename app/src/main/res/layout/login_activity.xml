@@ -35,6 +35,8 @@
                 android:layout_marginTop="5dp"
                 android:text="Email Id" />
             <EditText
+                android:drawableRight="@drawable/login_ic_person"
+                android:drawablePadding="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="sonawane.1@gmail.com" />
