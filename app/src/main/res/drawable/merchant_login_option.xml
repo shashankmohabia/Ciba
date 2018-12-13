@@ -2,20 +2,18 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item
-            android:bottom="10dp"
-            android:left="-100dp"
-            android:right="-100dp"
-            android:top="-500dp">
-            <shape>
-                <corners android:radius="500dp" />
-                <solid android:color="@color/blue_light" />
-            </shape>
+            android:bottom="-16dp"
+            android:drawable="@drawable/shadow_215531"
+            android:left="-30dp"
+            android:right="-50dp"
+            android:top="-20dp">
+
         </item>
 
     <item
         android:bottom="11dp"
-        android:left="-100dp"
-        android:right="-100dp"
+        android:left="-80dp"
+        android:right="-80dp"
         android:top="-500dp">
         <shape>
             <corners android:radius="500dp" />
