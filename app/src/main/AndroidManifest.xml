@@ -10,12 +10,21 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+            </activity>
+        <activity android:name=".BootSplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
+<activity android:name=".Info"></activity>
+        <activity android:name=".choose"></activity>
+        <activity android:name=".Login_customer">        </activity>
+        <activity android:name=".Login_merchant"></activity>
+        <activity android:name=".Menu"/>
+        <activity android:name=".RegisterNew"/>
     </application>
 
 </manifest>
