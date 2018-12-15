@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.shashankmohabia.ciba.Core.MenuActivity
 import com.example.shashankmohabia.ciba.R
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -26,7 +27,6 @@ class LoginActivity:AppCompatActivity(){
     lateinit var mGoogleSignInClient:GoogleSignInClient
     lateinit var gso:GoogleSignInOptions
     val RC_SIGN_IN:Int=1
-    lateinit var signOut: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +37,8 @@ class LoginActivity:AppCompatActivity(){
                 .requestEmail()
                 .build()
         mGoogleSignInClient=GoogleSignIn.getClient(this,gso)
-        signOut = findViewById<View>(R.id.signout) as Button
-        signOut.visibility=View.INVISIBLE
+
+
 
         signin.setOnClickListener {
             signInGoogle()
@@ -66,18 +66,9 @@ class LoginActivity:AppCompatActivity(){
         }
     }
     private fun updateUI(account : GoogleSignInAccount?){
-        val disp = findViewById<TextView>(R.id.name) as TextView
-        disp.text=account!!.displayName
-        signOut.visibility=View.VISIBLE
-        val img = findViewById<ImageView>(R.id.DP)
-        signOut.setOnClickListener {
-            mGoogleSignInClient.signOut().addOnCompleteListener {
+        Toast.makeText(this,"welcome "+account!!.displayName,Toast.LENGTH_LONG).show()
+        val intent= Intent(this,MenuActivity::class.java)
+        startActivity(intent)
 
-                disp.text="Login"
-                //disp.textSize="20sp"
-                signOut.visibility=View.INVISIBLE
-
-            }
-        }
     }
 }
