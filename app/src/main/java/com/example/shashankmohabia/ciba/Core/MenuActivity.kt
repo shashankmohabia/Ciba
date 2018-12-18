@@ -4,22 +4,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.menu_activity.*
+import org.w3c.dom.Text
 
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var gso:GoogleSignInOptions
+val db = FirebaseFirestore.getInstance()
+var user2 = HashMap<String, Any>()
 
 
 class MenuActivity: AppCompatActivity(){
+    val TAG = MenuActivity::class.java!!.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_activity)
@@ -35,9 +46,60 @@ class MenuActivity: AppCompatActivity(){
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
 
         //logging out here from toolbar
+    val Add = findViewById<Button>(R.id.db_add) as Button
+        val roll = findViewById<TextView>(R.id.roll) as TextView
+        val addr = findViewById<TextView>(R.id.addr)as TextView
+        val email = findViewById<TextView>(R.id.email)as TextView
+        val name = findViewById<TextView>(R.id.name)as TextView
+        val ord = findViewById<TextView>(R.id.order)as TextView
+        val prof = findViewById<TextView>(R.id.prof)as TextView
+        val show = findViewById<Button>(R.id.db_show) as Button
+
+        Add.setOnClickListener {
+            Toast.makeText(this,"button working",Toast.LENGTH_SHORT).show()
+            val user = HashMap<String, Any>()
+            user["Roll number"] = "B18CSE053"
+            user["address"] = "263 G6"
+            user["email_id"] = "sonawane.1@iitj.ac.in"
+            user["name"] = "Soham"
+            user["orders"] = "NULL"
+            user["prof_pic"] = "NULL"
+
+// Add a new document with a generated ID
+            db.collection("User")
+                    .add(user)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.id)
+
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
+        }
+
+        show.setOnClickListener {
+          var query = db.collection("User").whereEqualTo("Roll number","B18CSE053")
+                  query.get()
+                    .addOnSuccessListener { result ->
+                        for (document in result ) {
+
+                                Log.d(TAG, document.id + " => " + document.data)
+
+                                roll.text = document.data["Roll number"].toString()
+                                addr.text = document.data["address"]!!.toString()
+                                email.text = document.data["email_id"]!!.toString()
+                                name.text = document.data["name"]!!.toString()
+                                ord.text = document.data["orders"]!!.toString()
+                                prof.text = document.data["prof_pic"]!!.toString()
 
 
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents.", exception)
+                    }
 
+        }
 
     }
 

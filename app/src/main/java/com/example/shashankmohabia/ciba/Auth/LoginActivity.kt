@@ -69,6 +69,15 @@ class LoginActivity:AppCompatActivity(){
         Toast.makeText(this,"welcome "+account!!.displayName,Toast.LENGTH_LONG).show()
         val intent= Intent(this,MenuActivity::class.java)
         startActivity(intent)
+        finish()
 
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        if(account!=null){
+        updateUI(account)}
     }
 }
