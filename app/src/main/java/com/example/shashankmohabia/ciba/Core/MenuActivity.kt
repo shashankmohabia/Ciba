@@ -3,6 +3,8 @@ package com.example.shashankmohabia.ciba.Core
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -14,22 +16,30 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Extensions.ItemData
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.menu_activity.*
+import kotlinx.android.synthetic.main.menu_item.*
 import org.w3c.dom.Text
 
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var gso:GoogleSignInOptions
 val db = FirebaseFirestore.getInstance()
+val menuref =db.collection("Users")
 var user2 = HashMap<String, Any>()
+var adapter : MenuAdapter? = null
 
 
 class MenuActivity: AppCompatActivity(){
-    val TAG = MenuActivity::class.java!!.simpleName
+    val TAG = MenuActivity::class.java.simpleName
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,7 @@ class MenuActivity: AppCompatActivity(){
         val  toolbar_menu : Toolbar = findViewById(R.id.toolbar_menu)
         setSupportActionBar(toolbar_menu)
 
+        setUpRecyclerView()
 
        //GSO
         gso= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -45,8 +56,11 @@ class MenuActivity: AppCompatActivity(){
                 .build()
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
 
+
+
+
         //logging out here from toolbar
-    val Add = findViewById<Button>(R.id.db_add) as Button
+  /*  val Add = findViewById<Button>(R.id.db_add) as Button
         val roll = findViewById<TextView>(R.id.roll) as TextView
         val addr = findViewById<TextView>(R.id.addr)as TextView
         val email = findViewById<TextView>(R.id.email)as TextView
@@ -75,9 +89,9 @@ class MenuActivity: AppCompatActivity(){
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding document", e)
                     }
-        }
+        }*/
 
-        show.setOnClickListener {
+        /*show.setOnClickListener {
           var query = db.collection("User").whereEqualTo("Roll number","B18CSE053")
                   query.get()
                     .addOnSuccessListener { result ->
@@ -99,7 +113,7 @@ class MenuActivity: AppCompatActivity(){
                         Log.w(TAG, "Error getting documents.", exception)
                     }
 
-        }
+        }*/
 
     }
 
@@ -135,6 +149,31 @@ class MenuActivity: AppCompatActivity(){
     private fun GotoCurrOrders(){
         Toast.makeText(this,"Need to create the activity for notification",Toast.LENGTH_SHORT).show()
 
+    }
+
+    private fun setUpRecyclerView(){
+        val query = menuref.orderBy("item_name",Query.Direction.DESCENDING)
+
+        val options :  FirestoreRecyclerOptions<ItemData> = FirestoreRecyclerOptions.Builder<ItemData>()
+                .setQuery(query,ItemData::class.java)
+                .build()
+
+        adapter = MenuAdapter(options)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager=LinearLayoutManager(this)
+        recyclerView.adapter= adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+        adapter!!.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter!!.stopListening()
     }
 
 }
