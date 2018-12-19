@@ -152,7 +152,7 @@ class MenuActivity: AppCompatActivity(){
     }
 
     private fun setUpRecyclerView(){
-        val query = menuref.orderBy("item_name",Query.Direction.DESCENDING)
+        val query = menuref.orderBy("name",Query.Direction.DESCENDING)
 
         val options :  FirestoreRecyclerOptions<ItemData> = FirestoreRecyclerOptions.Builder<ItemData>()
                 .setQuery(query,ItemData::class.java)
@@ -161,7 +161,6 @@ class MenuActivity: AppCompatActivity(){
         adapter = MenuAdapter(options)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.setHasFixedSize(false)
         recyclerView.layoutManager=LinearLayoutManager(this)
         recyclerView.adapter= adapter
     }

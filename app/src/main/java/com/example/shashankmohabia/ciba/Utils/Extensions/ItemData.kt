@@ -10,14 +10,17 @@ class ItemData{
      var name : String? =null
      var price :String? = null
 
+    constructor(){
+
+        //empty constructor needed
+    }
+
     constructor(name: String?, price: String?) {
         this.name = name
         this.price = price
     }
 
-    init {
-    //empty consructor needed
-}
+
 
 
 }

@@ -12,13 +12,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
 
 
-class MenuAdapter: FirestoreRecyclerAdapter<ItemData, MenuAdapter.ItemHolder> {
+class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>) : FirestoreRecyclerAdapter<ItemData, MenuAdapter.ItemHolder>(options) {
     override fun onBindViewHolder(holder: ItemHolder, position: Int, model: ItemData) {
         holder.textViewName.text = model.name
         holder.textViewPrice.text = model.price
             }
-
-    constructor(options: FirestoreRecyclerOptions<ItemData>) : super(options)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
        val v : View = LayoutInflater.from(parent.context).inflate(R.layout.menu_item,parent,false)
