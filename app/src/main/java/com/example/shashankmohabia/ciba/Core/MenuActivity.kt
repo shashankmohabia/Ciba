@@ -161,6 +161,7 @@ class MenuActivity: AppCompatActivity(){
         adapter = MenuAdapter(options)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.setHasFixedSize(false)
         recyclerView.layoutManager=LinearLayoutManager(this)
         recyclerView.adapter= adapter
     }

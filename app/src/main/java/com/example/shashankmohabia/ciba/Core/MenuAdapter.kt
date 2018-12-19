@@ -14,9 +14,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
 class MenuAdapter: FirestoreRecyclerAdapter<ItemData, MenuAdapter.ItemHolder> {
     override fun onBindViewHolder(holder: ItemHolder, position: Int, model: ItemData) {
-        holder.textViewName.text = model.getItemName()
-        holder.textViewPrice.text = model.getItemPrice()
-        holder.textViewPriority.text = model.getItemPriority().toString()    }
+        holder.textViewName.text = model.name
+        holder.textViewPrice.text = model.price
+            }
 
     constructor(options: FirestoreRecyclerOptions<ItemData>) : super(options)
 
@@ -30,7 +30,7 @@ class MenuAdapter: FirestoreRecyclerAdapter<ItemData, MenuAdapter.ItemHolder> {
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val textViewName = itemView.findViewById<TextView>(R.id.text_view_item_name) as TextView
             val textViewPrice = itemView.findViewById<TextView>(R.id.text_view_item_price) as TextView
-            val textViewPriority = itemView.findViewById<TextView>(R.id.text_view_priority) as TextView
+
 
     }
 }
