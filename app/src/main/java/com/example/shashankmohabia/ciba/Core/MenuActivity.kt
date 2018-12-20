@@ -6,27 +6,19 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Extensions.ItemData
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.menu_activity.*
-import kotlinx.android.synthetic.main.menu_item.*
-import org.w3c.dom.Text
 
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var gso:GoogleSignInOptions
@@ -152,22 +144,28 @@ class MenuActivity: AppCompatActivity(){
     }
 
     private fun setUpRecyclerView(){
-        val query = menuref.orderBy("name",Query.Direction.DESCENDING)
+        val query = menuref.orderBy("name",Query.Direction.ASCENDING)
 
         val options :  FirestoreRecyclerOptions<ItemData> = FirestoreRecyclerOptions.Builder<ItemData>()
                 .setQuery(query,ItemData::class.java)
                 .build()
 
-        adapter = MenuAdapter(options)
+        adapter = MenuAdapter(options,this)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager=LinearLayoutManager(this)
         recyclerView.adapter= adapter
+        recyclerView.setOnClickListener {
+            val intent = Intent(this,MenuExpanded::class.java)
+            startActivity(intent)
+        finish()}
     }
 
     override fun onStart() {
         super.onStart()
         adapter!!.startListening()
+
+
     }
 
     override fun onStop() {
