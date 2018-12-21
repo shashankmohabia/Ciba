@@ -20,6 +20,7 @@
                 android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
+        android:elevation="15dp"
         android:id="@+id/login_card"
         android:layout_marginTop="200dp"
         android:layout_width="match_parent"

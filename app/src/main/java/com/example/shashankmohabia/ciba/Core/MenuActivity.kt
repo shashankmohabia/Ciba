@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Extensions.ItemData
+import com.example.shashankmohabia.ciba.Utils.Extensions.MenuAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -150,7 +151,7 @@ class MenuActivity: AppCompatActivity(){
                 .setQuery(query,ItemData::class.java)
                 .build()
 
-        adapter = MenuAdapter(options,this)
+        adapter = MenuAdapter(options, this)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager=LinearLayoutManager(this)

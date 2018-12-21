@@ -1,9 +1,7 @@
-package com.example.shashankmohabia.ciba.Core
+package com.example.shashankmohabia.ciba.Utils.Extensions
 
 import android.content.Context
 import android.content.Intent
-import android.os.Parcel
-import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.example.shashankmohabia.ciba.Core.MenuExpanded
 import com.example.shashankmohabia.ciba.R
-import com.example.shashankmohabia.ciba.Utils.Extensions.ItemData
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.DocumentSnapshot
@@ -24,8 +22,11 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
         holder.textViewName.text = model.name
         holder.textViewPrice.text = model.price
         holder.layout.setOnClickListener {
-            val intent=Intent(mContext,MenuExpanded::class.java)
+            val intent=Intent(mContext, MenuExpanded::class.java)
+            intent.putExtra("itemName",model.name)
+            intent.putExtra("itemPrice",model.price)
             mContext.startActivity(intent)
+
         }
             }
 
@@ -54,7 +55,7 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
      interface OnItemClickListener{
          fun onItemClick(documentSnapshot: DocumentSnapshot,position: Int)
      }
-    fun setOnItemClickListener(listener:OnItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener){
         this.listenerr= listener
     }
 
