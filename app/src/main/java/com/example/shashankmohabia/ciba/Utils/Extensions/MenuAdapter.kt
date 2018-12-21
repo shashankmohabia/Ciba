@@ -20,11 +20,16 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int, model: ItemData) {
         holder.textViewName.text = model.name
-        holder.textViewPrice.text = model.price
+        holder.textViewPrice.text = model.price.toString()
         holder.layout.setOnClickListener {
             val intent=Intent(mContext, MenuExpanded::class.java)
+            intent.putExtra("availablity",model.availability)
+            intent.putExtra("isVeg",model.isVeg)
             intent.putExtra("itemName",model.name)
             intent.putExtra("itemPrice",model.price)
+            intent.putExtra("prepTime",model.preptime)
+
+
             mContext.startActivity(intent)
 
         }
