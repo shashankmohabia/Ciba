@@ -111,7 +111,7 @@ class MenuActivity: AppCompatActivity(){
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater : MenuInflater = getMenuInflater()
+        val inflater : MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_menu,menu)
         return true
     }
@@ -122,9 +122,16 @@ class MenuActivity: AppCompatActivity(){
             R.id.sign_out ->logout()
             R.id.notification -> GotoNotification()
             R.id.current_orders -> GotoCurrOrders()
+            R.id.menu_cart->updateUI()
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun updateUI() {
+        val intent = Intent(this,Cart::class.java)
+        startActivity(intent)
+    }
+
     private fun logout(){
         val intent = Intent(this,LoginActivity::class.java)
         mGoogleSignInClient.signOut().addOnCompleteListener {

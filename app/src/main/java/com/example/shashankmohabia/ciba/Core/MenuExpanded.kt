@@ -8,14 +8,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Extensions.CartData
+import com.example.shashankmohabia.ciba.Utils.Extensions.data
+
 
 class MenuExpanded : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_expanded)
         val price : Int = intent.getIntExtra("itemPrice",0)
         val isVeg : Boolean = intent.getBooleanExtra("isVeg",true)
+        val id : String = intent.getStringExtra("id")
         val item_image =findViewById<ImageView>(R.id.item_image)
         val itemName = findViewById<TextView>(R.id.expanded_menu_item_name)
         val itemPrice = findViewById<TextView>(R.id.expanded_menu_item_price)
@@ -24,6 +29,7 @@ class MenuExpanded : AppCompatActivity() {
         val icon = findViewById<ImageView>(R.id.icon)
         val btnAdd =findViewById<ImageView>(R.id.btn_add_item)
         val btnRemove =  findViewById<ImageView>(R.id.btn_remove_item)
+        val btnAddToCart = findViewById<Button>(R.id.btn_add_to_cart)
         val counter = findViewById<TextView>(R.id.counter_item)
         var count :Int = 0
 
@@ -50,6 +56,31 @@ class MenuExpanded : AppCompatActivity() {
             }
         }
        // Toast.makeText(this,itemName,Toast.LENGTH_LONG).show()
+        btnAddToCart.setOnClickListener {
+            Toast.makeText(this,count.toString()+" items added to Cart.",Toast.LENGTH_LONG).show()
+            if(count>0){val index : Int = data.items.lastIndex
+                val singleItem = CartData()
+                if(index.equals(null)){
+            data.items[0].name=itemName.text.toString()
+            data.items[0].qty=count
+            data.items[0].rate=price
+            data.items[0].amt=count*price
+            data.items[0].id=id
+                }else{
+                    singleItem.name=itemName.text.toString()
+                 singleItem.qty =count
+                 singleItem.rate=price
+              singleItem.amt=count*price
+       singleItem.id=id
+                    data.items.add(singleItem)
+
+                }
+            }
+            finish()
+        }
 
     }
+
+
+
 }

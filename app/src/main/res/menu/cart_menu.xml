@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+
+    <item android:id="@+id/sign_out"
+        android:title="Sign Out"
+        app:showAsAction="never"
+        ></item>
+
+    <item android:id="@+id/notification"
+        android:title="Show Notifications"
+        app:showAsAction="never"></item>
+
+    <item android:id="@+id/current_orders"
+        android:title="Show Current Orders"
+        app:showAsAction="never"></item>
+
+
+
+</menu>

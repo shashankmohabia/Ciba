@@ -27,13 +27,27 @@
             android:textColor="@android:color/white"
             android:text="Item Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-       <TextView
+      <TextView
+          android:id="@+id/rs"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/text_view_item_name"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentLeft="true"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:paddingTop="10dp"
+          android:text="Rs."
+          android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+          android:textColor="@android:color/white"/>
+        <TextView
             android:id="@+id/text_view_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_item_name"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_toEndOf="@+id/rs"
+            android:layout_toRightOf="@+id/rs"
+            android:paddingLeft="2dp"
             android:ellipsize="end"
            android:textColor="@android:color/white"
             android:maxLines="1"
