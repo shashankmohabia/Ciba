@@ -6,16 +6,16 @@
     android:theme="@style/ThemeOverlay.AppCompat.Light">
 
 
-    <item android:id="@+id/sign_out"
+    <item android:id="@+id/sign_out_cart"
         android:title="Sign Out"
         app:showAsAction="never"
         ></item>
 
-    <item android:id="@+id/notification"
+    <item android:id="@+id/notification_cart"
         android:title="Show Notifications"
         app:showAsAction="never"></item>
 
-    <item android:id="@+id/current_orders"
+    <item android:id="@+id/current_orders_cart"
         android:title="Show Current Orders"
         app:showAsAction="never"></item>
 

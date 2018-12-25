@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -12,6 +13,7 @@ import android.support.v7.widget.helper.ItemTouchHelper.SimpleCallback
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
@@ -29,6 +31,17 @@ class Cart : AppCompatActivity() {
         val  toolbar_cart : Toolbar = findViewById(R.id.toolbar_cart_layout)
         setSupportActionBar(toolbar_cart)
         setUpRecyclerView()
+
+        calculateTotal()
+
+        val placeOrder = findViewById<Button>(R.id.btn_place_order)
+        placeOrder.setOnClickListener {
+            finish()
+        }
+
+    }
+
+    private fun calculateTotal() {
         val finalAmt= findViewById<TextView>(R.id.total_amt)
         val finalQty = findViewById<TextView>(R.id.total_qty)
         var finalAmount :Int=0
@@ -41,7 +54,6 @@ class Cart : AppCompatActivity() {
         finalQty.isAllCaps=false
         finalAmt.text="Rs."+finalAmount.toString()
         finalAmt.isAllCaps=false
-
     }
 
     private fun setUpRecyclerView() {
@@ -61,6 +73,8 @@ class Cart : AppCompatActivity() {
                val adapterPosition =viewHolder.adapterPosition
                if(direction==ItemTouchHelper.RIGHT){
                    adapter.deleteItem(adapterPosition)
+                   calculateTotal()
+                   recycler_view_cart.adapter=adapter
                }
 
            }
@@ -77,9 +91,9 @@ class Cart : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem?): Boolean {
         when(item!!.itemId){
-            R.id.sign_out ->logout()
-            R.id.notification -> GotoNotification()
-            R.id.current_orders -> GotoCurrOrders()
+            R.id.sign_out_cart ->logout()
+            R.id.notification_cart -> GotoNotification()
+            R.id.current_orders_cart -> GotoCurrOrders()
         }
         return super.onContextItemSelected(item)
     }
@@ -100,5 +114,10 @@ class Cart : AppCompatActivity() {
     private fun GotoCurrOrders(){
         Toast.makeText(this,"Need to create the activity for notification", Toast.LENGTH_SHORT).show()
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(this,"Swipe right to remove items",Toast.LENGTH_LONG).show()
     }
 }

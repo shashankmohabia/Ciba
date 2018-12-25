@@ -13,7 +13,6 @@ import com.example.shashankmohabia.ciba.Core.MenuExpanded
 import com.example.shashankmohabia.ciba.R
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.DocumentSnapshot
 
 
 class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mContext: Context) : FirestoreRecyclerAdapter<ItemData, MenuAdapter.ItemHolder>(options) {
@@ -21,15 +20,15 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
     override fun onBindViewHolder(holder: ItemHolder, position: Int, model: ItemData) {
         holder.textViewName.text = model.name
         holder.textViewPrice.text = model.price.toString()
+
         holder.layout.setOnClickListener {
             val intent=Intent(mContext, MenuExpanded::class.java)
-            intent.putExtra("availablity",model.availability)
-            intent.putExtra("isVeg",model.isVeg)
+            intent.putExtra("availableOrNot",model.availableOrNot)
+            intent.putExtra("vegOrNot",model.vegOrNot)
             intent.putExtra("itemName",model.name)
             intent.putExtra("itemPrice",model.price)
             intent.putExtra("prepTime",model.preptime)
             intent.putExtra("id",snapshots.getSnapshot(position).id)
-
             mContext.startActivity(intent)
 
         }
