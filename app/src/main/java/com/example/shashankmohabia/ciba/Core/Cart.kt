@@ -20,9 +20,14 @@ import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Extensions.CartAdapter
 import com.example.shashankmohabia.ciba.Utils.Extensions.data
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_cart.*
 import org.w3c.dom.Text
+val orderRef = db.collection("Orders")
 
+var ordersMap = HashMap<String,Any>()
 class Cart : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +36,34 @@ class Cart : AppCompatActivity() {
         val  toolbar_cart : Toolbar = findViewById(R.id.toolbar_cart_layout)
         setSupportActionBar(toolbar_cart)
         setUpRecyclerView()
+        val account : GoogleSignInAccount?= GoogleSignIn.getLastSignedInAccount(this)
 
         calculateTotal()
 
         val placeOrder = findViewById<Button>(R.id.btn_place_order)
         placeOrder.setOnClickListener {
+            ordersMap["isApproved"]=false
+            ordersMap["isCancled"]=false
+            ordersMap["isDelivered"]=false
+            ordersMap["isPaymentRecieved"]=false
+            ordersMap["orderId"]= ""
+            ordersMap["placed by"]=account!!.displayName.toString()
+            ordersMap["placed to"]="THAR OASIS"
+
+            orderRef.add(ordersMap).addOnSuccessListener {documentRefrence->
+                documentRefrence.update("orderId",documentRefrence.id)
+                val itemsList = db.collection("Orders/${documentRefrence.id}/items")
+                var itemData = HashMap<String,Any>()
+                for(item in data.items){
+                    itemData["amt"]=item.amt
+                    itemData["itemId"]=item.id.toString()
+                    itemData["qty"]=item.qty
+                    itemsList.add(itemData)
+                }
+                Toast.makeText(this,"ORDER SUCCESSFULLY PLACED",Toast.LENGTH_LONG).show()
+                data.items.clear()
+                ordersMap.clear()
+            }
             finish()
         }
 

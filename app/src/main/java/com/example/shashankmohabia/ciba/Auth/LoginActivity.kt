@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MenuActivity
+import com.example.shashankmohabia.ciba.Core.OrdersActivity
 import com.example.shashankmohabia.ciba.R
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -27,11 +28,15 @@ class LoginActivity:AppCompatActivity(){
     lateinit var mGoogleSignInClient:GoogleSignInClient
     lateinit var gso:GoogleSignInOptions
     val RC_SIGN_IN:Int=1
+    var isCustomer :Boolean=false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
         val signin=findViewById<View>(R.id.gsignin) as SignInButton
+        isCustomer=intent.getBooleanExtra("isCustomer",false)
         gso=GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -65,12 +70,19 @@ class LoginActivity:AppCompatActivity(){
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show()
         }
     }
-    private fun updateUI(account : GoogleSignInAccount?){
+     fun updateUI(account : GoogleSignInAccount?){
         Toast.makeText(this,"welcome "+account!!.displayName,Toast.LENGTH_LONG).show()
-        val intent= Intent(this,MenuActivity::class.java)
-        startActivity(intent)
-        finish()
+        if(isCustomer.equals(true)) {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else{
+            val intent = Intent(this, OrdersActivity::class.java)
+            startActivity(intent)
+            finish()
 
+        }
     }
 
     public override fun onStart() {

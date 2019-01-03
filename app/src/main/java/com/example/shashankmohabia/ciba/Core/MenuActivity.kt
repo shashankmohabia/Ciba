@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
 import com.example.shashankmohabia.ciba.Utils.Extensions.ItemData
 import com.example.shashankmohabia.ciba.Utils.Extensions.MenuAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -133,7 +134,7 @@ class MenuActivity: AppCompatActivity(){
     }
 
     private fun logout(){
-        val intent = Intent(this,LoginActivity::class.java)
+        val intent = Intent(this,UserTypeSelectionActivity::class.java)
         mGoogleSignInClient.signOut().addOnCompleteListener {
             startActivity(intent)
             Toast.makeText(this,"YOU just logged out",Toast.LENGTH_SHORT).show()

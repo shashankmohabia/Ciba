@@ -11,9 +11,20 @@ class UserTypeSelectionActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_type_selection)
-    val btn_customer=findViewById<ImageView>(R.id.customer_option) as ImageView
-        btn_customer.setOnClickListener {
+
+    val btnCustomer=findViewById<ImageView>(R.id.customer_option) as ImageView
+    val btnMerchant =  findViewById<ImageView>(R.id.merchant_option)as ImageView
+        var isCustomer : Boolean = false
+        btnCustomer.setOnClickListener {
+            isCustomer=true
             val intent= Intent(this, LoginActivity::class.java)
+            intent.putExtra("isCustomer",isCustomer)
+            startActivity(intent)
+            finish()
+        }
+        btnMerchant.setOnClickListener {
+            val intent= Intent(this, LoginActivity::class.java)
+            intent.putExtra("isCustomer",isCustomer)
             startActivity(intent)
             finish()
         }
