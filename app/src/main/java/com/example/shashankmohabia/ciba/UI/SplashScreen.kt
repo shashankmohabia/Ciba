@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Extensions.data
+
 
 class SplashScreen : AppCompatActivity(){
 
@@ -20,4 +22,11 @@ class SplashScreen : AppCompatActivity(){
         finish()}
 
     }
+
+
+    override fun onStart() {
+        super.onStart()
+    data.items.clear()
+    }
+
 }

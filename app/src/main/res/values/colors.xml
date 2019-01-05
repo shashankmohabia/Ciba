@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorInfoBackground">#0055CF</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorPrimary">#594691</color>
+    <color name="colorPrimaryDark">#3e2d70</color>
+    <color name="colorPrimaryLight">#9c7ff1</color>
+    <color name="bgBackSideColor">#f4f0ff</color>
+    <color name="bgTitleLeft">#594691</color>
+    <color name="bgTitleRight">#ffffff</color>
+    <color name="bgContentTop">#594691</color>
+    <color name="bgContent">#ffffff</color>
+    <color name="contentDividerLine">#e0e0e0</color>
+    <color name="contentBadgeTitle">#a9a9a9</color>
+    <color name="titleBadgeTitle">#adafb1</color>
+    <color name="titleBadgeText">#adafb1</color>
+    <color name="mainTextColor">#343d43</color>
+    <color name="btnRequest">#ffbf12</color>
+
+    <color name="black_overlay">#66000000</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>
@@ -23,9 +36,18 @@
     <color name="dot_light_screen3">#93c6fd</color>
     <color name="dot_light_screen4">#e4b5fc</color>
 
-    <!--card color-->
+
+    <!--user type bg color blue-->
     <color name="blue">#1976D2</color>
+    <color name="blue_light">#8dfcf7</color>
+    <color name="blue_dark">#021acc</color>
+
+    <!--user type bg color green-->
     <color name="green">#4CAF50</color>
+    <color name="green_light">#ade16d</color>
+    <color name="green_dark">#02af2a</color>
+
+
 
     <!--login screen user-->
     <color name="colorPrimarylogin">#33b5e5</color>
