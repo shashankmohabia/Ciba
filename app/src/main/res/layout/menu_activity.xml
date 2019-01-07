@@ -6,9 +6,12 @@
     android:id="@+id/toolbar_menu_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <include
         android:id="@+id/toolbar_menu"
         layout="@layout/toolbaar_menu" /></LinearLayout>
+
+
 
    <!-- <TextView
         android:id="@+id/name1"

@@ -31,6 +31,8 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
             intent.putExtra("id",snapshots.getSnapshot(position).id)
             mContext.startActivity(intent)
 
+
+
         }
             }
 

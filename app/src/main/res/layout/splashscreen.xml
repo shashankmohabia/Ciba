@@ -17,7 +17,7 @@
         android:layout_marginRight="8dp"
         android:contentDescription="logo"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/splash_screen_background"
+        android:src="@drawable/ciba_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

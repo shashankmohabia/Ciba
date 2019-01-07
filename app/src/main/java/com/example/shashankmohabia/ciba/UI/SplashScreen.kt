@@ -7,6 +7,7 @@ import android.widget.ImageView
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Extensions.data
 
+
 class SplashScreen : AppCompatActivity(){
 
 
@@ -25,5 +26,6 @@ class SplashScreen : AppCompatActivity(){
     override fun onStart() {
         super.onStart()
     data.items.clear()
+       // searchData.searchItems.clear()
     }
 }

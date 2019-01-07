@@ -1,5 +1,6 @@
 package com.example.shashankmohabia.ciba.Core
 
+import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,17 +11,18 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
-import com.example.shashankmohabia.ciba.Utils.Extensions.ItemData
-import com.example.shashankmohabia.ciba.Utils.Extensions.MenuAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
+import com.example.shashankmohabia.ciba.Utils.Extensions.*
+
 
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var gso:GoogleSignInOptions
@@ -28,7 +30,8 @@ val db = FirebaseFirestore.getInstance()
 val menuref =db.collection("Users")
 var user2 = HashMap<String, Any>()
 var adapter : MenuAdapter? = null
-
+var searchAdapter : SearchAdapter? = null
+val query = menuref.orderBy("name",Query.Direction.ASCENDING)
 
 class MenuActivity: AppCompatActivity(){
     val TAG = MenuActivity::class.java.simpleName
@@ -41,7 +44,7 @@ class MenuActivity: AppCompatActivity(){
         val  toolbar_menu : Toolbar = findViewById(R.id.toolbar_menu)
         setSupportActionBar(toolbar_menu)
 
-        setUpRecyclerView()
+        setUpRecyclerView(query)
 
        //GSO
         gso= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -114,7 +117,103 @@ class MenuActivity: AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater : MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_menu,menu)
+        val searchView = MenuItemCompat.getActionView(menu!!.findItem(R.id.search_menu)) as SearchView
+        val searchManager : SearchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(text: String): Boolean {
+               // val singleItemSearchData:ItemData = ItemData()
+                if (!text.trim { it <= ' ' }.isEmpty()) {
+                //search(text.toString())
+                  //  setupSearchRecyclerView()
+                }else{
+                }
+                       setupSearchRecyclerView()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                if (newText.trim { it <= ' ' }.isEmpty()) {
+
+                    setUpRecyclerView(query)
+                    adapter!!.startListening()
+                    filteredData.filterData.clear()
+
+                }else{
+
+                    search(newText)
+                    setupSearchRecyclerView()
+                    setupSearchRecyclerView()
+
+                }
+
+                return false
+            }
+        })
+        searchView.setOnSearchClickListener {
+            Toast.makeText(this@MenuActivity,"FUCK_ME2",Toast.LENGTH_SHORT).show()
+
+        }
+        searchManager.setOnCancelListener {
+            Toast.makeText(this@MenuActivity,"FUCK_ME_3",Toast.LENGTH_SHORT).show()
+
+        }
+        searchView.setOnCloseListener {
+            Toast.makeText(this@MenuActivity,"FUCK",Toast.LENGTH_SHORT).show()
+            return@setOnCloseListener false
+        }
+
+
         return true
+    }
+
+    private fun search(s: String) {
+        var name : String?=null
+        var singleDataItem=ItemData()
+    menuref.get().addOnSuccessListener {
+        for(collection in it){
+            name=collection.data["name"].toString()
+            s.toString().toLowerCase()
+            name!!.toLowerCase()
+
+            if(checkIfEqual(name!!,s)){
+                Toast.makeText(this,name,Toast.LENGTH_LONG).show()
+                singleDataItem.preptime=collection.data["preptime"].toString()
+                singleDataItem.name=name
+                singleDataItem.price=collection.getDouble("price")!!.toInt()
+                singleDataItem.vegOrNot=collection.getBoolean("vegOrNot")
+                singleDataItem.availableOrNot=collection.data["availability"].toString()
+                singleDataItem.id=collection.id
+                filteredData.filterData.add(singleDataItem)
+            }
+        }
+    }
+
+
+    }
+
+    private fun checkIfEqual(name: String, s: String):Boolean {
+
+        for (i in s.indices){
+            if(!name[i].equals(s[i])){return false}
+        }
+        return true
+    }
+
+
+    private fun setupSearchRecyclerView() {
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val layoutManager=LinearLayoutManager(this)
+        layoutManager.orientation=LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager=layoutManager
+
+
+        searchAdapter = SearchAdapter(this, filteredData.filterData)
+        recyclerView.adapter= searchAdapter
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -152,8 +251,8 @@ class MenuActivity: AppCompatActivity(){
 
     }
 
-    private fun setUpRecyclerView(){
-        val query = menuref.orderBy("name",Query.Direction.ASCENDING)
+    private fun setUpRecyclerView(query: Query){
+
 
         val options :  FirestoreRecyclerOptions<ItemData> = FirestoreRecyclerOptions.Builder<ItemData>()
                 .setQuery(query,ItemData::class.java)
@@ -164,10 +263,7 @@ class MenuActivity: AppCompatActivity(){
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager=LinearLayoutManager(this)
         recyclerView.adapter= adapter
-        recyclerView.setOnClickListener {
-            val intent = Intent(this,MenuExpanded::class.java)
-            startActivity(intent)
-        finish()}
+
     }
 
     override fun onStart() {
