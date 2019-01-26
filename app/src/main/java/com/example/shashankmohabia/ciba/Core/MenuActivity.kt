@@ -124,17 +124,17 @@ class MenuActivity: AppCompatActivity(){
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String): Boolean {
-               // val singleItemSearchData:ItemData = ItemData()
                 if (!text.trim { it <= ' ' }.isEmpty()) {
-                //search(text.toString())
-                  //  setupSearchRecyclerView()
+                search(text)
+                    filteredData.filterData.clear()
+                    setupSearchRecyclerView()
                 }else{
                 }
                        setupSearchRecyclerView()
                 return false
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
+            override fun onQueryTextChange(newText: String): Boolean {  filteredData.filterData.clear()
 
                 if (newText.trim { it <= ' ' }.isEmpty()) {
 
@@ -146,7 +146,7 @@ class MenuActivity: AppCompatActivity(){
 
                     search(newText)
                     setupSearchRecyclerView()
-                    setupSearchRecyclerView()
+
 
                 }
 
@@ -172,15 +172,15 @@ class MenuActivity: AppCompatActivity(){
 
     private fun search(s: String) {
         var name : String?=null
-        var singleDataItem=ItemData()
     menuref.get().addOnSuccessListener {
         for(collection in it){
+            var singleDataItem=ItemData()
+
             name=collection.data["name"].toString()
             s.toString().toLowerCase()
             name!!.toLowerCase()
 
-            if(checkIfEqual(name!!,s)){
-                Toast.makeText(this,name,Toast.LENGTH_LONG).show()
+            if(checkIfEqual(name!!.toLowerCase(),s)){
                 singleDataItem.preptime=collection.data["preptime"].toString()
                 singleDataItem.name=name
                 singleDataItem.price=collection.getDouble("price")!!.toInt()
@@ -188,8 +188,11 @@ class MenuActivity: AppCompatActivity(){
                 singleDataItem.availableOrNot=collection.data["availability"].toString()
                 singleDataItem.id=collection.id
                 filteredData.filterData.add(singleDataItem)
+                name=null
+                setupSearchRecyclerView()
             }
         }
+        Toast.makeText(this,"Showing the most relevant",Toast.LENGTH_LONG).show()
     }
 
 

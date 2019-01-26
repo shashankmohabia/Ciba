@@ -1,5 +1,6 @@
 package com.example.shashankmohabia.ciba.Utils.Extensions
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
@@ -10,12 +11,13 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.example.shashankmohabia.ciba.Core.MenuActivity
 import com.example.shashankmohabia.ciba.Core.MenuExpanded
 import com.example.shashankmohabia.ciba.R
 
 
 class SearchAdapter(val context: Context, val item : List<ItemData>): RecyclerView.Adapter<SearchAdapter.MyViewHolder>() {
-
+private val activity= context as MenuActivity
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.menu_item,p0,false)
@@ -28,17 +30,20 @@ class SearchAdapter(val context: Context, val item : List<ItemData>): RecyclerVi
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
         val itemData=item[p1]
         p0.setData(itemData,p1)
-            /*p0.layout.setOnClickListener {
+            p0.layout.setOnClickListener {
                 val intent= Intent(context, MenuExpanded::class.java)
-                intent.putExtra("availableOrNot",searchData.searchItems[p1].availableOrNot)
-                intent.putExtra("vegOrNot",searchData.searchItems[p1].vegOrNot)
-                intent.putExtra("itemName",searchData.searchItems[p1].name)
-                intent.putExtra("itemPrice",searchData.searchItems[p1].price)
-                intent.putExtra("prepTime",searchData.searchItems[p1].preptime)
-                intent.putExtra("id",searchData.searchItems[p1].id)
+                intent.putExtra("availableOrNot",filteredData.filterData[p1].availableOrNot)
+                intent.putExtra("vegOrNot",filteredData.filterData[p1].vegOrNot)
+                intent.putExtra("itemName",filteredData.filterData[p1].name)
+                intent.putExtra("itemPrice",filteredData.filterData[p1].price)
+                intent.putExtra("prepTime",filteredData.filterData[p1].preptime)
+                intent.putExtra("id",filteredData.filterData[p1].id)
+                filteredData.filterData.clear()
+
                 context.startActivity(intent)
-              //  searchData.searchItems.clear()
-            }*/
+                activity.finish()
+
+            }
 
 
     }

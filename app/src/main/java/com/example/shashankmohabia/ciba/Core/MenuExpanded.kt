@@ -1,5 +1,6 @@
 package com.example.shashankmohabia.ciba.Core
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +10,7 @@ import android.widget.Toast
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Extensions.CartData
 import com.example.shashankmohabia.ciba.Utils.Extensions.data
+import es.dmoral.toasty.Toasty
 
 
 class MenuExpanded : AppCompatActivity() {
@@ -56,7 +58,8 @@ class MenuExpanded : AppCompatActivity() {
         }
        // Toast.makeText(this,itemName,Toast.LENGTH_LONG).show()
         btnAddToCart.setOnClickListener {
-            Toast.makeText(this,count.toString()+" items added to Cart.",Toast.LENGTH_LONG).show()
+           // Toast.makeText(this,count.toString()+" items added to Cart.",Toast.LENGTH_LONG).show()
+            Toasty.info(this,count.toString()+" items added to Cart.",Toast.LENGTH_LONG,true).show()
             if(count>0){val index : Int = data.items.lastIndex
                 val singleItem = CartData()
                 if(index.equals(null)){
@@ -75,6 +78,8 @@ class MenuExpanded : AppCompatActivity() {
 
                 }
             }
+            val intent=Intent(this,MenuActivity::class.java)
+            startActivity(intent)
             finish()
         }
 

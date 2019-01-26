@@ -23,6 +23,7 @@ import com.example.shashankmohabia.ciba.Utils.Extensions.data
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.firestore.FirebaseFirestore
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_cart.*
 import org.w3c.dom.Text
 val orderRef = db.collection("Orders")
@@ -60,7 +61,8 @@ class Cart : AppCompatActivity() {
                     itemData["qty"]=item.qty
                     itemsList.add(itemData)
                 }
-                Toast.makeText(this,"ORDER SUCCESSFULLY PLACED",Toast.LENGTH_LONG).show()
+                //Toast.makeText(this,"ORDER SUCCESSFULLY PLACED",Toast.LENGTH_LONG).show()
+                Toasty.success(this,"ORDER SUCCESFULLY PLACED",Toast.LENGTH_SHORT,true).show()
                 data.items.clear()
                 ordersMap.clear()
             }
