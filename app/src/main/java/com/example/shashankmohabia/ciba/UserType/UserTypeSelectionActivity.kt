@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
+
 import com.example.shashankmohabia.ciba.R
 
 class UserTypeSelectionActivity:AppCompatActivity() {
@@ -28,6 +29,7 @@ class UserTypeSelectionActivity:AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
 
     }
 }

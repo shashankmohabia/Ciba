@@ -65,6 +65,7 @@ class Info : AppCompatActivity() {
         if (!prefManager!!.isFirstTimeLaunch) {
             launchHomeScreen()
             finish()
+
         }
 
         // Making notification bar transparent
@@ -83,6 +84,7 @@ class Info : AppCompatActivity() {
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = intArrayOf(R.layout.info_page_1, R.layout.info_page_2, R.layout.info_page_3, R.layout.info_page_4)
+
 
         // adding bottom dots
         addBottomDots(0)

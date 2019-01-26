@@ -23,9 +23,11 @@ class SplashScreen : AppCompatActivity(){
 
     }
 
+
     override fun onStart() {
         super.onStart()
     data.items.clear()
        // searchData.searchItems.clear()
     }
+
 }
