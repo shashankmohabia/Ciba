@@ -3,9 +3,7 @@ package com.example.shashankmohabia.ciba.UI
 import android.content.Context
 import android.content.SharedPreferences
 
-/**
- * Created by Lincoln on 05/05/16.
- */
+
 class prefmanager(internal var _context: Context) {
     internal var pref: SharedPreferences
     internal var editor: SharedPreferences.Editor
