@@ -83,23 +83,20 @@ class LoginActivity:AppCompatActivity(){
                 tempEmail=collection.data["email_id"].toString()
                 if (tempEmail.equals(email)){
                     n++
-                    }else{
-
-
-
-                }
+                    }
             }
+            if(n>0){
+                updateUI(account)
+                Toast.makeText(this,"user Exitsts",Toast.LENGTH_SHORT).show()
+
+            }else{Toast.makeText(this,"User is not registered please register",Toast.LENGTH_SHORT).show()
+                val int=Intent(this,Pop::class.java)
+                int.putExtra("email",account!!.email.toString())
+                int.putExtra("picURL",account.photoUrl.toString())
+                startActivity(int)}
         }
 
-        if(n>0){
-            updateUI(account)
-            Toast.makeText(this,"user Exitsts",Toast.LENGTH_SHORT).show()
 
-        }else{Toast.makeText(this,"User is not registered please register",Toast.LENGTH_SHORT).show()
-            val int=Intent(this,Pop::class.java)
-            int.putExtra("email",account!!.email.toString())
-            int.putExtra("picURL",account.photoUrl.toString())
-            startActivity(int)}
 
     }
      fun updateUI(account : GoogleSignInAccount?){
