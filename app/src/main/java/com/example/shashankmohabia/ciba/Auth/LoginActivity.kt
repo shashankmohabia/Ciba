@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import com.example.shashankmohabia.ciba.Core.MainActivity
 import com.example.shashankmohabia.ciba.Core.MenuActivity
 import com.example.shashankmohabia.ciba.Core.OrdersActivity
 import com.example.shashankmohabia.ciba.R
@@ -74,22 +75,31 @@ class LoginActivity:AppCompatActivity(){
     //checks if a person is a first time user or not
     fun userExists(account: GoogleSignInAccount?,email : String) {
         var tempEmail:String? = null
-
+        var n=0
 
         val query= dbref.collection("UserList")
         query.get().addOnSuccessListener {
             for(collection in it){
-                tempEmail=collection.data["email"].toString()
+                tempEmail=collection.data["email_id"].toString()
                 if (tempEmail.equals(email)){
-                    updateUI(account)
-                    Toast.makeText(this,"user Exitsts",Toast.LENGTH_SHORT).show()
-                }else{
-                    updateUI(account)
-                    Toast.makeText(this,"User is not registered please register",Toast.LENGTH_SHORT).show()}
+                    n++
+                    }else{
+
+
+
+                }
             }
         }
 
+        if(n>0){
+            updateUI(account)
+            Toast.makeText(this,"user Exitsts",Toast.LENGTH_SHORT).show()
 
+        }else{Toast.makeText(this,"User is not registered please register",Toast.LENGTH_SHORT).show()
+            val int=Intent(this,Pop::class.java)
+            int.putExtra("email",account!!.email.toString())
+            int.putExtra("picURL",account.photoUrl.toString())
+            startActivity(int)}
 
     }
      fun updateUI(account : GoogleSignInAccount?){

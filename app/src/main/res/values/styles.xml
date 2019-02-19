@@ -40,6 +40,9 @@
         <item name="android:textSize">12dp</item>
 
     </style>
-
+        <style name="GetInfo">
+            <item name="android:windowIsTranslucent">true</item>
+            <item name="android:windowCloseOnTouchOutside">true</item>
+        </style>
 
 </resources>
