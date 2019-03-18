@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MenuActivity
 
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,7 +25,7 @@ class Pop : Activity() {
 
         val name= this.findViewById<EditText>(R.id.getInfoName)
         val hostel=findViewById<EditText>(R.id.getInfoHostel)
-        val number=findViewById<EditText>(R.id.getInfoName)
+        val number=findViewById<EditText>(R.id.getInfoNumber)
         val rollNum=findViewById<EditText>(R.id.getInfoRoll)
         val email=intent.getStringExtra("email")
         val picURL=intent.getStringExtra("picURL")
@@ -54,10 +55,16 @@ class Pop : Activity() {
         val user = HashMap<String, Any>()
         user["Roll number"] = rollNum
         user["address"] = hostel
-        user["number"]=number
         user["email_id"] = email
         user["name"] = name
+        user["number"]=number
         user["prof_pic"] = picURL
+        currUser.roll=rollNum
+        currUser.add = hostel
+        currUser.email = email
+        currUser.name = name
+        currUser.number= number
+        currUser.profileUrl=picURL
 
         db.collection("UserList")
                 .add(user).addOnSuccessListener {                 Toast.makeText(this,"User Added to list of users",Toast.LENGTH_SHORT).show()

@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MainActivity
 import com.example.shashankmohabia.ciba.Core.MenuActivity
 import com.example.shashankmohabia.ciba.Core.OrdersActivity
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,7 +22,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.menu_activity.*
+import kotlinx.android.synthetic.main.nav_header.view.*
 
+var account : GoogleSignInAccount?=null
 val auth=FirebaseAuth.getInstance()
 val dbref=FirebaseFirestore.getInstance()
 class LoginActivity:AppCompatActivity(){
@@ -65,12 +70,14 @@ class LoginActivity:AppCompatActivity(){
     }
     private fun handleResult(completedTask : Task<GoogleSignInAccount>){
         try{
-            val account : GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
+            account  = completedTask.getResult(ApiException::class.java)
             userExists(account,account!!.email.toString())
         }catch (e:ApiException){
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show()
         }
     }
+
+
 
     //checks if a person is a first time user or not
     fun userExists(account: GoogleSignInAccount?,email : String) {
@@ -86,8 +93,16 @@ class LoginActivity:AppCompatActivity(){
                     }
             }
             if(n>0){
+                addCurrentUserData()
+               /* val navigationViewHeader2=nav_view.getHeaderView(0)
+                val username = navigationViewHeader2.findViewById<TextView>(R.id.UserName)
+                val useremail = navigationViewHeader2.findViewById<TextView>(R.id.UserEmail)
+                username.text= currUser.name
+                username.isAllCaps=true
+                useremail.text= currUser.email*/
                 updateUI(account)
                 Toast.makeText(this,"user Exitsts",Toast.LENGTH_SHORT).show()
+
 
             }else{Toast.makeText(this,"User is not registered please register",Toast.LENGTH_SHORT).show()
                 val int=Intent(this,Pop::class.java)
@@ -99,7 +114,28 @@ class LoginActivity:AppCompatActivity(){
 
 
     }
-     fun updateUI(account : GoogleSignInAccount?){
+
+    private fun addCurrentUserData() {
+        val query=dbref.collection("UserList").whereEqualTo("email_id", account!!.email.toString())
+                query.get()
+                .addOnSuccessListener {result->
+                    for(document in result){
+                        currUser.roll=document["Roll number"].toString()
+                        currUser.add = document["address"].toString()
+                        currUser.email = document["email_id"].toString()
+                        currUser.name = document["name"].toString()
+                        currUser.number= document["number"].toString()
+                        currUser.profileUrl=document["prof_pic"].toString()
+
+                    }
+                }
+
+
+    }
+
+
+
+    fun updateUI(account : GoogleSignInAccount?){
 
 
         if(isCustomer.equals(true)) {

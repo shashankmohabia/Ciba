@@ -1,8 +1,9 @@
-package com.example.shashankmohabia.ciba.Core
+    package com.example.shashankmohabia.ciba.Core
 
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -24,7 +25,20 @@ import android.support.v4.view.MenuItemCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.SearchView
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.example.shashankmohabia.ciba.Auth.LoginActivity
+import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.example.shashankmohabia.ciba.Utils.Extensions.*
+import com.squareup.picasso.Picasso
+
+import kotlinx.android.synthetic.main.menu_activity.*
+import kotlinx.android.synthetic.main.nav_header.*
+import kotlinx.android.synthetic.main.nav_header.view.*
+import org.w3c.dom.Text
 
 
 lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -36,9 +50,25 @@ var adapter: MenuAdapter? = null
 var searchAdapter: SearchAdapter? = null
 val query = menuref.orderBy("name", Query.Direction.ASCENDING)
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when(p0.itemId){
+            R.id.profile->{
+                Toast.makeText(this,"PROFILE",Toast.LENGTH_SHORT).show()
+            }
+            R.id.orders->{                Toast.makeText(this," ORDERS ",Toast.LENGTH_SHORT).show()
+            }
+            R.id.logout->{               logout()
+            }
+            R.id.contactUs->{                Toast.makeText(this,"CONTACTus",Toast.LENGTH_SHORT).show()
+            }
+        }
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
     val TAG = MenuActivity::class.java.simpleName
-    val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
+   // lateinit var drawer: DrawerLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +77,29 @@ class MenuActivity : AppCompatActivity() {
         val toolbar_menu: Toolbar = findViewById<Toolbar>(R.id.toolbar_menu)
         setSupportActionBar(toolbar_menu)
 
+        val toggle:ActionBarDrawerToggle =object : ActionBarDrawerToggle(this, drawer_layout, toolbar_menu,
+                R.string.Navigation_drawer_open, R.string.Navigation_drawer_close){
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+             // Toast.makeText(drawerView.context,"working",Toast.LENGTH_SHORT).show()
+                setupFragment()
+                invalidateOptionsMenu()
+            }
 
-        val toggle = ActionBarDrawerToggle(this, drawer, toolbar_menu, R.string.Navigation_drawer_open, R.string.Navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                Toast.makeText(drawerView.context,"working",Toast.LENGTH_SHORT).show()
+
+                setupFragment()
+                invalidateOptionsMenu()
+            }
+        }
+
+        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         setUpRecyclerView(query)
+
+        nav_view.setNavigationItemSelectedListener(this)
 
         //GSO
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -59,6 +107,11 @@ class MenuActivity : AppCompatActivity() {
                 .requestEmail()
                 .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        //function to add the user dp and name with email
+        //setupFragment()
+
+
 
 
         //logging out here from toolbar
@@ -119,9 +172,26 @@ class MenuActivity : AppCompatActivity() {
 
     }
 
+    private fun setupFragment() {
+        val navigationViewHeader=nav_view.getHeaderView(0)
+        val userdp=navigationViewHeader.findViewById<ImageView>(R.id.userDP)
+        val username = navigationViewHeader.findViewById<TextView>(R.id.UserName)
+        val useremail = navigationViewHeader.findViewById<TextView>(R.id.UserEmail)
+        Glide.with(this).load(currUser.profileUrl).override(300,300).into(userdp)
+        username.text= currUser.name
+        username.isAllCaps=true
+        useremail.text= currUser.email
+        //CHecking if the text view is null
+        if(currUser.name.equals("")){Toast.makeText(this,"EMPTY",Toast.LENGTH_SHORT).show()}
+        username.text= currUser.name
+
+
+    }
+
+
     override fun onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START)
+        if(drawer_layout.isDrawerOpen(GravityCompat.START)){
+            drawer_layout.closeDrawer(GravityCompat.START)
         }else{
         super.onBackPressed()}
     }
@@ -286,9 +356,10 @@ class MenuActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+       // if(currUser.name.equals("")){Toast.makeText(this,"EMPTY",Toast.LENGTH_SHORT).show()}
+//Toast.makeText(this,"menu",Toast.LENGTH_SHORT).show()
         adapter!!.startListening()
-
-
+        setupFragment()
     }
 
     override fun onStop() {
