@@ -88,7 +88,12 @@ class LoginActivity:AppCompatActivity(){
                     }
             }
             if(n>0){
-                if(isCustomer.equals(true)){                addCurrentUserData()
+                if(isCustomer.equals(true)){
+                    //adds current logged in users' data to an object current user
+                    addCurrentUserData()
+                }else{
+                    //adds current logged in merchants data
+                    addCurrentMerchantData()
                 }
                /* val navigationViewHeader2=nav_view.getHeaderView(0)
                 val username = navigationViewHeader2.findViewById<TextView>(R.id.UserName)
@@ -109,6 +114,16 @@ class LoginActivity:AppCompatActivity(){
 
 
 
+    }
+
+    private fun addCurrentMerchantData() {
+        val query= dbref.collection("MerchantList").whereEqualTo("email_id", account!!.email.toString())
+        query.get()
+                .addOnSuccessListener {
+                    for(doc in it){
+
+                    }
+                }
     }
 
     private fun addCurrentUserData() {
