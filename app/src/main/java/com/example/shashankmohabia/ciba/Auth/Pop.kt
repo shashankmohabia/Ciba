@@ -8,8 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MenuActivity
+import com.example.shashankmohabia.ciba.Core.mGoogleSignInClient
 
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
 import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.firestore.FirebaseFirestore
@@ -79,8 +81,22 @@ class Pop : Activity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        logout()
+    }
     override fun onDestroy() {
+
         super.onDestroy()
+
+    }
+    fun logout() {
+        val intent = Intent(this, UserTypeSelectionActivity::class.java)
+        mGoogleSignInClient.signOut().addOnCompleteListener {
+            startActivity(intent)
+            Toast.makeText(this, "YOU just logged out", Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
     }
 }

@@ -114,7 +114,7 @@ class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-        //logging out here from toolbar
+        //loging out here from toolbar
         /*  val Add = findViewById<Button>(R.id.db_add) as Button
               val roll = findViewById<TextView>(R.id.roll) as TextView
               val addr = findViewById<TextView>(R.id.addr)as TextView
@@ -320,7 +320,7 @@ class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
     }
 
-    private fun logout() {
+     fun logout() {
         val intent = Intent(this, UserTypeSelectionActivity::class.java)
         mGoogleSignInClient.signOut().addOnCompleteListener {
             startActivity(intent)
