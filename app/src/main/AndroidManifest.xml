@@ -9,10 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Core.Temp"
-            android:label="@string/title_activity_temp"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity android:name=".Core.MainActivity" />
         <activity android:name=".UI.SplashScreen">
             <intent-filter>
@@ -29,8 +26,10 @@
         <activity android:name=".Core.Cart" />
         <activity android:name=".Core.MerchantActivity" />
         <activity
-            android:name=".Auth.Pop"
+            android:name=".Auth.UserPop"
             android:theme="@style/GetInfo" />
+        <activity android:name=".Auth.MerchantPop"
+            android:theme="@style/GetInfo"/>
     </application>
 
 </manifest>

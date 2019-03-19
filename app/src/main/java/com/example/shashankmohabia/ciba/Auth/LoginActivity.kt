@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MenuActivity
 import com.example.shashankmohabia.ciba.Core.MerchantActivity
+import com.example.shashankmohabia.ciba.Fragments.EnterDetailsForFirstTime
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Constants.currMerchant
 import com.example.shashankmohabia.ciba.Utils.Constants.currUser
@@ -107,10 +108,12 @@ class LoginActivity:AppCompatActivity(){
 
 
             }else{Toast.makeText(this,"User is not registered please register",Toast.LENGTH_SHORT).show()
-                val int=Intent(this,Pop::class.java)
-                int.putExtra("email",account!!.email.toString())
-                int.putExtra("picURL",account.photoUrl.toString())
-                startActivity(int)}
+               // val int=Intent(this,UserPop::class.java)
+                //int.putExtra("email",account!!.email.toString())
+                //int.putExtra("picURL",account.photoUrl.toString())
+                //startActivity(int)
+
+                }
         }
 
 
