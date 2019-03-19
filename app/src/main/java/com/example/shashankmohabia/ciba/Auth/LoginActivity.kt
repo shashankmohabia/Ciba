@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MenuActivity
 import com.example.shashankmohabia.ciba.Core.MerchantActivity
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Constants.currMerchant
 import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -121,6 +122,10 @@ class LoginActivity:AppCompatActivity(){
         query.get()
                 .addOnSuccessListener {
                     for(doc in it){
+                        currMerchant.name=doc["name"].toString()
+                        currMerchant.email=doc["email_id"].toString()
+                        currMerchant.paytmNumber=doc["paytmNumber"].toString()
+                        currMerchant.profileUrl=doc["profileUrl"].toString()
 
                     }
                 }
