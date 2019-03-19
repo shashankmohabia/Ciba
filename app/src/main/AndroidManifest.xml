@@ -27,7 +27,7 @@
         <activity android:name=".Core.MenuActivity" />
         <activity android:name=".Core.MenuExpanded" />
         <activity android:name=".Core.Cart" />
-        <activity android:name=".Core.OrdersActivity" />
+        <activity android:name=".Core.MerchantActivity" />
         <activity
             android:name=".Auth.Pop"
             android:theme="@style/GetInfo" />

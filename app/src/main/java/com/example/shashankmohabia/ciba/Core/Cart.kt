@@ -66,6 +66,7 @@ class Cart : AppCompatActivity() {
                 data.items.clear()
                 ordersMap.clear()
             }
+
             finish()
         }
 

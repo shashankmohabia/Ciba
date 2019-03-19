@@ -4,11 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import com.example.shashankmohabia.ciba.Core.MainActivity
 import com.example.shashankmohabia.ciba.Core.MenuActivity
-import com.example.shashankmohabia.ciba.Core.OrdersActivity
+import com.example.shashankmohabia.ciba.Core.MerchantActivity
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,10 +18,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.menu_activity.*
-import kotlinx.android.synthetic.main.nav_header.view.*
 
 var account : GoogleSignInAccount?=null
 val auth=FirebaseAuth.getInstance()
@@ -71,7 +65,7 @@ class LoginActivity:AppCompatActivity(){
     private fun handleResult(completedTask : Task<GoogleSignInAccount>){
         try{
             account  = completedTask.getResult(ApiException::class.java)
-            userExists(account,account!!.email.toString())
+           userExists(account,account!!.email.toString())
         }catch (e:ApiException){
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show()
         }
@@ -84,7 +78,8 @@ class LoginActivity:AppCompatActivity(){
         var tempEmail:String? = null
         var n=0
 
-        val query= dbref.collection("UserList")
+        var query= dbref.collection("UserList")
+        if(isCustomer.equals(false)){query=dbref.collection("MerchantList")}
         query.get().addOnSuccessListener {
             for(collection in it){
                 tempEmail=collection.data["email_id"].toString()
@@ -93,7 +88,8 @@ class LoginActivity:AppCompatActivity(){
                     }
             }
             if(n>0){
-                addCurrentUserData()
+                if(isCustomer.equals(true)){                addCurrentUserData()
+                }
                /* val navigationViewHeader2=nav_view.getHeaderView(0)
                 val username = navigationViewHeader2.findViewById<TextView>(R.id.UserName)
                 val useremail = navigationViewHeader2.findViewById<TextView>(R.id.UserEmail)
@@ -144,7 +140,7 @@ class LoginActivity:AppCompatActivity(){
             finish()
         }
         else{
-            val intent = Intent(this, OrdersActivity::class.java)
+            val intent = Intent(this, MerchantActivity::class.java)
             startActivity(intent)
             finish()
 
