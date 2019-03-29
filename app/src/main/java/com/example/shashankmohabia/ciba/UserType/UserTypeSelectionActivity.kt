@@ -7,6 +7,7 @@ import android.widget.ImageView
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 
 import com.example.shashankmohabia.ciba.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 class UserTypeSelectionActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,5 +32,13 @@ class UserTypeSelectionActivity:AppCompatActivity() {
         }
 
 
+    }
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        //if (account != null) {
+           // updateUI(account)
+        //}
     }
 }

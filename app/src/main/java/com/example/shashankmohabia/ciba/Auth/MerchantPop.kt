@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Core.MenuActivity
+import com.example.shashankmohabia.ciba.Core.MerchantActivity
 import com.example.shashankmohabia.ciba.Core.mGoogleSignInClient
+import com.example.shashankmohabia.ciba.Core.myGoogleSignInClient
 import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
 import com.example.shashankmohabia.ciba.Utils.Constants.currMerchant
@@ -24,8 +26,8 @@ class MerchantPop:Activity(){
         val name= this.findViewById<EditText>(R.id.getInfoNameMerchant)
         val paytmNumber=findViewById<EditText>(R.id.getInfoNumberMerchant)
         val button=findViewById<Button>(R.id.submit_button_merchant)
-        val email = intent.getStringExtra("Memail")
-        val picURL = intent.getStringExtra("MpicURL")
+        val email = intent.getStringExtra("email")
+        val picURL = intent.getStringExtra("picURL")
 
         val dm= DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
@@ -46,7 +48,7 @@ class MerchantPop:Activity(){
     }
 
     private fun updateUI() {
-        val intent = Intent(this, MenuActivity::class.java)
+        val intent = Intent(this, MerchantActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -74,7 +76,7 @@ class MerchantPop:Activity(){
     }
     fun logout() {
         val intent = Intent(this, UserTypeSelectionActivity::class.java)
-        mGoogleSignInClient.signOut().addOnCompleteListener {
+        myGoogleSignInClient.signOut().addOnCompleteListener {
             startActivity(intent)
             Toast.makeText(this, "YOU just logged out", Toast.LENGTH_SHORT).show()
             finish()
