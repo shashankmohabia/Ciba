@@ -8,6 +8,8 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -23,11 +25,15 @@ import com.example.shashankmohabia.ciba.R
 import com.example.shashankmohabia.ciba.UserType.UserTypeSelectionActivity
 import com.example.shashankmohabia.ciba.Utils.Constants.currMerchant
 import com.example.shashankmohabia.ciba.Utils.Constants.currUser
+import com.example.shashankmohabia.ciba.Utils.Extensions.MerchantAdapter
+import com.example.shashankmohabia.ciba.Utils.Extensions.OrderData
 import com.example.shashankmohabia.ciba.Utils.Extensions.filteredData
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.menu_activity.*
 import kotlinx.android.synthetic.main.merchant_activity.*
 import kotlinx.android.synthetic.main.toolbar_merchant.*
@@ -39,6 +45,8 @@ val dbmerch = FirebaseFirestore.getInstance()
 //resume by adding a logout fun
 
 class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var adapterMerchant: MerchantAdapter? = null
+    var queryMerchant  = dbmerch.collection("Orders")
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId){
             R.id.profile->{
@@ -81,7 +89,7 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         drawer_layout_merchant.addDrawerListener(toggle)
         toggle.syncState()
-       setUpRecyclerView(query)
+       setUpRecyclerView(queryMerchant)
 
         nav_view_merchant.setNavigationItemSelectedListener(this)
 
@@ -91,6 +99,20 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 .requestEmail()
                 .build()
         myGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+
+    }
+
+    private fun setUpRecyclerView(query: Query) {
+        val options: FirestoreRecyclerOptions<OrderData> = FirestoreRecyclerOptions.Builder<OrderData>()
+                .setQuery(query, OrderData::class.java)
+                .build()
+
+        adapterMerchant = MerchantAdapter(options, this)
+        // maybe a bug like can i use the sme recycler view agian
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapterMerchant
 
 
     }
@@ -108,10 +130,10 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 if (!text.trim { it <= ' ' }.isEmpty()) {
                    // search(text)
                     filteredData.filterData.clear()
-                    setupSearchRecyclerView()
+                  //  setupSearchRecyclerView()
                 } else {
                 }
-                setupSearchRecyclerView()
+                //setupSearchRecyclerView()
                 return false
             }
 
@@ -126,7 +148,7 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 } else {
 
                     //search(newText)
-                    setupSearchRecyclerView()
+                    //setupSearchRecyclerView()
 
 
                 }
@@ -151,9 +173,7 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
-    private fun setupSearchRecyclerView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {

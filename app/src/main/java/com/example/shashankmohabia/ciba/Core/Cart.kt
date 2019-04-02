@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.shashankmohabia.ciba.Auth.LoginActivity
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.example.shashankmohabia.ciba.Utils.Extensions.CartAdapter
 import com.example.shashankmohabia.ciba.Utils.Extensions.data
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -26,6 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_cart.*
 import org.w3c.dom.Text
+import java.util.*
+
 val orderRef = db.collection("Orders")
 
 var ordersMap = HashMap<String,Any>()
@@ -48,8 +51,10 @@ class Cart : AppCompatActivity() {
             ordersMap["isDelivered"]=false
             ordersMap["isPaymentRecieved"]=false
             ordersMap["orderId"]= ""
-            ordersMap["placed by"]=account!!.displayName.toString()
-            ordersMap["placed to"]="THAR OASIS"
+            ordersMap["placedBy"]=account!!.displayName.toString()
+            ordersMap["placedByNumber"]= currUser.number.toString()
+            ordersMap["placedTo"]="THAR OASIS"
+            ordersMap["time"]=Calendar.getInstance().time
 
             orderRef.add(ordersMap).addOnSuccessListener {documentRefrence->
                 documentRefrence.update("orderId",documentRefrence.id)

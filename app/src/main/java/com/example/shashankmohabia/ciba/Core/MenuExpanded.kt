@@ -58,7 +58,7 @@ class MenuExpanded : AppCompatActivity() {
         }
        // Toast.makeText(this,itemName,Toast.LENGTH_LONG).show()
         btnAddToCart.setOnClickListener {
-           // Toast.makeText(this,count.toString()+" items added to Cart.",Toast.LENGTH_LONG).show()
+           Toast.makeText(this,count.toString()+" items added to Cart.",Toast.LENGTH_LONG).show()
             Toasty.info(this,count.toString()+" items added to Cart.",Toast.LENGTH_SHORT,true).show()
             if(count>0){val index : Int = data.items.lastIndex
                 val singleItem = CartData()
