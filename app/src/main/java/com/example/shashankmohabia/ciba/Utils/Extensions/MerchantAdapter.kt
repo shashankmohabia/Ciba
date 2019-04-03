@@ -21,7 +21,7 @@ class MerchantAdapter(options: FirestoreRecyclerOptions<OrderData>, private val 
 
         holder.placedBy.text=model.placedBy
         holder.placedByNumber.text=model.placedByNumber
-        holder.placedByTime.text=model.time
+        holder.placedByTime.text=model.time.toString()
 
         //add onclick listener?
     }

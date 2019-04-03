@@ -42,11 +42,11 @@ import kotlinx.android.synthetic.main.toolbar_merchant.*
 lateinit var myGoogleSignInClient: GoogleSignInClient
 lateinit var mgso: GoogleSignInOptions
 val dbmerch = FirebaseFirestore.getInstance()
-//resume by adding a logout fun
+
 
 class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var adapterMerchant: MerchantAdapter? = null
-    var queryMerchant  = dbmerch.collection("Orders")
+    var queryMerchant  = dbmerch.collection("Orders").orderBy("time")//.whereArrayContains("placedTo", currMerchant.name.toString())
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId){
             R.id.profile->{
@@ -80,7 +80,7 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             override fun onDrawerClosed(drawerView: View) {
                 super.onDrawerClosed(drawerView)
-                Toast.makeText(drawerView.context, "working", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(drawerView.context, "working", Toast.LENGTH_SHORT).show()
 
                 setupFragment()
                 invalidateOptionsMenu()
@@ -110,7 +110,7 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         adapterMerchant = MerchantAdapter(options, this)
         // maybe a bug like can i use the sme recycler view agian
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view_merchant)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapterMerchant
 
@@ -208,5 +208,16 @@ class MerchantActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             finish()
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        adapterMerchant!!.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+            adapterMerchant!!.stopListening()
     }
 }
