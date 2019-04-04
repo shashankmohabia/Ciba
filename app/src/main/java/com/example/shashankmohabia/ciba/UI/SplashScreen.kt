@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import com.example.shashankmohabia.ciba.R
+import com.example.shashankmohabia.ciba.Utils.Constants.currUser
 import com.example.shashankmohabia.ciba.Utils.Extensions.data
+import java.lang.Thread.sleep
 
 
 class SplashScreen : AppCompatActivity(){
@@ -14,12 +16,19 @@ class SplashScreen : AppCompatActivity(){
     override fun onCreate(savedInstancestate: Bundle?){
         super.onCreate(savedInstancestate)
         setContentView(R.layout.splashscreen)
-        val lo:ImageView=findViewById<ImageView>(R.id.logo)
-        lo.setOnClickListener {
-        val intent= Intent(this, Info::class.java)
 
-        startActivity(intent)
-        finish()}
+        val intent= Intent(this, Info::class.java)
+        Thread{
+            try {
+                sleep(1500)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            } finally {
+                startActivity(intent)
+                finish()
+            }
+        }.start()
+
 
     }
 
@@ -27,6 +36,8 @@ class SplashScreen : AppCompatActivity(){
     override fun onStart() {
         super.onStart()
     data.items.clear()
+
+       // searchData.searchItems.clear()
     }
 
 }

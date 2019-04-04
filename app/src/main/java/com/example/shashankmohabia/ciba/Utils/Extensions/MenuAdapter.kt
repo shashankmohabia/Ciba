@@ -31,6 +31,8 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
             intent.putExtra("id",snapshots.getSnapshot(position).id)
             mContext.startActivity(intent)
 
+
+
         }
             }
 
@@ -42,9 +44,9 @@ class MenuAdapter(options: FirestoreRecyclerOptions<ItemData>, private val mCont
 
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val textViewName = itemView.findViewById<TextView>(R.id.text_view_item_name) as TextView
-            val textViewPrice = itemView.findViewById<TextView>(R.id.text_view_item_price) as TextView
-            val layout = itemView.findViewById<RelativeLayout>(R.id.relative_layout_item)as RelativeLayout
+       val textViewName =itemView.findViewById<TextView>(R.id.text_view_item_name)
+        val textViewPrice=itemView.findViewById<TextView>(R.id.text_view_item_price)
+        val layout=itemView.findViewById<RelativeLayout>(R.id.relative_layout_item)
             init {
                 itemView.setOnClickListener {
 

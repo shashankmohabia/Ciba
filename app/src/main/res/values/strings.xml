@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Ciba</string>
 
+    <string name="Navigation_drawer_open">Open navigation drawer</string>
+    <string name="Navigation_drawer_close">Close navigation drawer</string>
+
 
     <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>
@@ -18,7 +21,6 @@
 
     <string name="slide_4_title">Food At Your Door Step</string>
     <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
-
 
 
     <string name="order_id_mock" translatable="false"># 1234–5678</string>
@@ -46,6 +48,13 @@
     <string name="content_to1_mock">46th Ave</string>
     <string name="content_to2_mock">Woodside, NY 11101</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_temp">Temp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>
