@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:elevation="21dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="10dp">
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
 
     <RelativeLayout
         android:id="@+id/relative_layout_item_merchant"
